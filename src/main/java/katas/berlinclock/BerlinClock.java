@@ -1,7 +1,8 @@
 package katas.berlinclock;
 
 class BerlinClock {
-    private static final int RED_ROW_1_LENGTH = 4;
+    private static final int RED_ROW_LENGTH = 4;
+    private static final int RED_YELOW_ROW_LENGTH = 11;
 
     private int hours;
     private int minutes;
@@ -26,7 +27,7 @@ class BerlinClock {
         for (int i = 0; i < noOfRedLightsOnRow1; i++) {
             redRow1.append("R");
         }
-        pad(redRow1, "O", RED_ROW_1_LENGTH);
+        pad(redRow1, "O", RED_ROW_LENGTH);
         return redRow1.toString();
     }
 
@@ -36,8 +37,25 @@ class BerlinClock {
         for (int i = 0; i < noOfRedLightsOnRow1; i++) {
             redRow1.append("R");
         }
-        pad(redRow1, "O", RED_ROW_1_LENGTH);
+        pad(redRow1, "O", RED_ROW_LENGTH);
         return redRow1.toString();
+    }
+
+    String yellowRedLightRow() {
+        StringBuilder s = new StringBuilder();
+        pad(s, "O", RED_YELOW_ROW_LENGTH);
+        int noOfRedLightsOn = minutes / 15;
+        int noOfYellowLightsOn = minutes / 5 - noOfRedLightsOn;
+
+        for (int i = 0; i < noOfYellowLightsOn+noOfRedLightsOn; i++) {
+            if ((i+1) % 3 == 0) {
+                s.replace(i, i + 1, "R");
+            } else {
+                s.replace(i, i + 1, "Y");
+            }
+        }
+
+        return s.toString();
     }
 
     private void pad(StringBuilder s, String with, int desiredLength) {
@@ -51,6 +69,6 @@ class BerlinClock {
 
     @Override
     public String toString() {
-        return seconds + "/n";
+        return topLight() + "\n" + firstRedLightRow() + "/n" + secondRedLightRow() + "\n" + yellowRedLightRow() + "\n";
     }
 }

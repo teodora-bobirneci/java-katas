@@ -8,7 +8,8 @@ and the bottom row has another four yellow fields, which mark one full minute ea
 The round yellow light on top blinks to denote even- (when lit) or odd-numbered (when unlit) seconds.
 
 Example: Two fields are lit in the first row (five hours multiplied by two, i.e. ten hours), but no fields are lit in the second row; therefore the hour value is 10. 
-Six fields are lit in the third row (five minutes multiplied by six, i.e. thirty minutes), while the bottom row has one field on (plus one minute). Hence, the lights of the clock altogether tell the time as 10:31. (Source: Wikipedia)
+Six fields are lit in the third row (five minutes multiplied by six, i.e. thirty minutes), while the bottom row has one field on (plus one minute).
+Hence, the lights of the clock altogether tell the time as 10:31. (Source: Wikipedia)
 
 Task: Write a function that takes in a particular time as 24h format ('hh:mm:ss') and outputs a string that reproduces the Berlin Clock. The parameters should be as follows:
 

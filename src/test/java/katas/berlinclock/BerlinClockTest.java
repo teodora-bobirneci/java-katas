@@ -72,4 +72,16 @@ public class BerlinClockTest {
         BerlinClock clock = new BerlinClock(time);
         assertEquals(yellowRedLightRow, clock.yellowRedLightRow());
     }
+
+    @Test
+    @Parameters({"8:10:21, OOOO",
+                        "8:11:21, YOOO",
+                        "8:12:33, YYOO",
+                        "8:13:00, YYYO",
+                        "8:14:00, YYYY",
+                        "8:15:00, OOOO"})
+    public void shouldLightYellowLightsForEachSecondMod5(String time, String yellowLightRow){
+        BerlinClock clock = new BerlinClock(time);
+        assertEquals(yellowLightRow, clock.bottomYellowRow());
+    }
 }

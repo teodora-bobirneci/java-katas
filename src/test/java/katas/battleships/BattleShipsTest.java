@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static katas.battleships.BattleShips.getElement;
 import static org.junit.Assert.assertEquals;
 
 public class BattleShipsTest {
@@ -39,5 +40,25 @@ public class BattleShipsTest {
         expected.put("points", 0.5);
 
         assertEquals(expected, BattleShips.damagedOrSunk(board, attacks));
+    }
+
+    @Test
+    public void matrixIsCorrectlyIterated() {
+        int[][] board = new int[][]{new int[]{3, 0, 1},
+                new int[]{3, 0, 1},
+                new int[]{0, 2, 1},
+                new int[]{0, 2, 0}};
+        assertEquals(0, getElement(board, 1, 1));
+        assertEquals(0, getElement(board, 1, 2));
+        assertEquals(3, getElement(board, 1, 3));
+        assertEquals(3, getElement(board, 1, 4));
+        assertEquals(2, getElement(board, 2, 1));
+        assertEquals(2, getElement(board, 2, 2));
+        assertEquals(0, getElement(board, 2, 3));
+        assertEquals(0, getElement(board, 2, 4));
+        assertEquals(0, getElement(board, 3, 1));
+        assertEquals(1, getElement(board, 3, 2));
+        assertEquals(1, getElement(board, 3, 3));
+        assertEquals(1, getElement(board, 3, 4));
     }
 }

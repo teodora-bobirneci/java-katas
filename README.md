@@ -1,2 +1,1 @@
 # java-katas
-<p>test</p>

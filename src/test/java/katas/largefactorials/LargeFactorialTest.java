@@ -1,4 +1,4 @@
-package katas;
+package katas.largefactorials;
 
 import katas.largefact.LargeFactorial;
 import org.junit.Test;

@@ -1,14 +1,10 @@
-package katas.tasklist;
+package katas.tasklist.old;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.*;
 
 import static java.lang.System.lineSeparator;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,12 +27,14 @@ public final class ApplicationTest {
         applicationThread = new Thread(taskList);
     }
 
-    @Before public void
+    @Before
+    public void
     start_the_application() {
         applicationThread.start();
     }
 
-    @After public void
+    @After
+    public void
     kill_the_application() throws IOException, InterruptedException {
         if (!stillRunning()) {
             return;
@@ -51,7 +49,8 @@ public final class ApplicationTest {
         throw new IllegalStateException("The application is still running.");
     }
 
-    @Test(timeout = 1000) public void
+    @Test(timeout = 1000)
+    public void
     it_works() throws IOException {
         execute("show");
 
@@ -61,10 +60,10 @@ public final class ApplicationTest {
 
         execute("show");
         readLines(
-            "secrets",
-            "    [ ] 1: Eat more donuts.",
-            "    [ ] 2: Destroy all humans.",
-            ""
+                "secrets",
+                "    [ ] 1: Eat more donuts.",
+                "    [ ] 2: Destroy all humans.",
+                ""
         );
 
         execute("add project training");

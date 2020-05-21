@@ -1,6 +1,4 @@
-package katas.tasklist;
-
-import com.google.common.collect.Iterables;
+package katas.tasklist.old;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
 
@@ -22,15 +18,15 @@ public final class TaskList implements Runnable {
 
     private long lastId = 0;
 
-    public TaskList(BufferedReader reader, PrintWriter writer) {
-        this.in = reader;
-        this.out = writer;
-    }
-
     public static void main(String[] args) {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
         new TaskList(in, out).run();
+    }
+
+    public TaskList(BufferedReader reader, PrintWriter writer) {
+        this.in = reader;
+        this.out = writer;
     }
 
     public void run() {
@@ -66,12 +62,6 @@ public final class TaskList implements Runnable {
             case "uncheck":
                 uncheck(commandRest[1]);
                 break;
-            case "deadline":
-                setDeadline(commandRest[1]);
-                break;
-            case "today":
-                showTasksDueToday();
-                break;
             case "help":
                 help();
                 break;
@@ -81,33 +71,11 @@ public final class TaskList implements Runnable {
         }
     }
 
-    private void showTasksDueToday() {
-        tasks.entrySet().stream().
-                flatMap(e -> e.getValue().stream()).collect(toList()).forEach(task ->
-        {
-            if (task.isDueToday()) {
-                out.println(task.getFormattedDetails());
-            }
-        });
-    }
-
-    private void setDeadline(String statement) {
-        String[] args = statement.split(" ");
-        long id = Long.parseLong(args[0]);
-
-        String dueDate = args[1];
-
-        Task task = Iterables.getOnlyElement(
-                tasks.entrySet().stream().
-                        flatMap(e -> e.getValue().stream()).collect(toList()).stream().filter(e -> e.getId() == id).collect(toList()));
-        task.setDueDate(dueDate);
-    }
-
     private void show() {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             out.println(project.getKey());
             for (Task task : project.getValue()) {
-                out.println(task.getFormattedDetails());
+                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
             }
             out.println();
         }
@@ -151,7 +119,7 @@ public final class TaskList implements Runnable {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId() == id) {
-                    task.markDone(done);
+                    task.setDone(done);
                     return;
                 }
             }
@@ -167,8 +135,6 @@ public final class TaskList implements Runnable {
         out.println("  add task <project name> <task description>");
         out.println("  check <task ID>");
         out.println("  uncheck <task ID>");
-        out.println("  deadline <task ID> <due date>");
-        out.println("  today");
         out.println();
     }
 

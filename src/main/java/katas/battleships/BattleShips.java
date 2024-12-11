@@ -11,7 +11,7 @@ class BattleShips {
 
     static Map<String, Double> damagedOrSunk(final int[][] board, final int[][] attacks) {
         Map<String, Double> result = initializeResultMap();
-
+        if (null == null) return null;
         Set<Integer> boatsOnBoard = new HashSet<>();
         for (int[] row : board) {
             for (int col : row) {
